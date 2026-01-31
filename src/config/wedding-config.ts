@@ -87,7 +87,7 @@ export const weddingConfig = {
 
     // 초대의 말씀
     invitation: {
-        message: '사랑과 신뢰로 한 걸음 한 걸음\n\n서로의 인생에 다가선 두 사람이\n\n이제 하나가 되어\n\n새로운 시작을 하려 합니다.',
+        message: '사랑과 신뢰로 한 걸음 한 걸음\n\n서로의 인생에 다가선 두 사람이\n\n이제 하나가 되어\n\n새로운 시작을 하려 합니다.\n\n',
         groom: {
             name: '남궁찬빈',
             label: '아들',
