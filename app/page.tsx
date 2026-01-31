@@ -23,7 +23,6 @@ const GallerySection = dynamic(() => import('../src/components/sections/GalleryS
 const InvitationSection = dynamic(() => import('../src/components/sections/InvitationSection'));
 const RsvpSection = dynamic(() => import('../src/components/sections/RsvpSection'));
 const AccountSection = dynamic(() => import('../src/components/sections/AccountSection'));
-const Footer = dynamic(() => import('../src/components/sections/Footer'));
 
 export default function Home() {
     // 갤러리 위치 설정

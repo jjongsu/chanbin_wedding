@@ -13,8 +13,8 @@ interface GalleryConfig {
 export const weddingConfig = {
     // 메타 정보
     meta: {
-        title: '신랑 ❤️ 신부의 결혼식에 초대합니다',
-        description: '결혼식 초대장',
+        title: '찬빈❤️인화 결혼식에 초대합니다.',
+        description: '2026. 4. 5.(일) PM 12:40\n대전 팔레드오페라, 4F 가르니에홀',
         ogImage: '/images/ha0h-1fsi-bqt3.jpg',
         noIndex: true,
         _jwk_watermark_id: uniqueIdentifier,
@@ -46,10 +46,10 @@ export const weddingConfig = {
 
     // 장소 정보
     venue: {
-        name: '웨딩홀 이름',
-        address: '서울특별시 강남구 테헤란로 123\n웨딩홀 이름',
-        tel: '02-1234-5678',
-        naverMapId: '웨딩홀 이름', // 네이버 지도 검색용 장소명
+        name: '팔레드오페라',
+        address: '대전 서구 둔산남로 50\n팔레드오페라',
+        tel: '042-300-5000',
+        naverMapId: '팔레드오페라', // 네이버 지도 검색용 장소명
         coordinates: {
             latitude: 37.5665,
             longitude: 126.978,
@@ -61,25 +61,7 @@ export const weddingConfig = {
             subway: '지하철역 1번 출구에서 도보 5분',
             bus: '간선\n 101, 102, 103\n지선\n 1234, 5678',
         },
-        parking: '건물 지하 주차장 이용 가능 (2시간 무료)',
-        // 신랑측 배차 안내
-        groomShuttle: {
-            location: '신랑측 배차 출발지',
-            departureTime: '오전 10시 30분 출발',
-            contact: {
-                name: '담당자명',
-                tel: '010-1234-5678',
-            },
-        },
-        // 신부측 배차 안내
-        brideShuttle: {
-            location: '신부측 배차 출발지',
-            departureTime: '오전 11시 출발',
-            contact: {
-                name: '담당자명',
-                tel: '010-9876-5432',
-            },
-        },
+        parking: '건물 주차장 이용 가능 (3시간 무료)',
     },
 
     // 갤러리
