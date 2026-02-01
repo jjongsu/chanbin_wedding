@@ -56,7 +56,7 @@ export const weddingConfig = {
         },
         placeId: '1599246173', // 네이버 지도 장소 ID
         mapZoom: '17', // 지도 줌 레벨
-        mapNaverCoordinates: '14141300,4507203,15,0,0,0,dh', // 네이버 지도 길찾기 URL용 좌표 파라미터 (구 형식)
+        mapNaverCoordinates: '14141300,4507203,15.00,0,0,0,dh', // 네이버 지도 길찾기 URL용 좌표 파라미터 (구 형식)
         transportation: {
             subway: '탄방역 2번, 3번 출구\n시청역 1번 출구',
             bus: '간선 104, 105, 106, 213, 617, 618, 703, 707\n광역 M1',
