@@ -11,10 +11,10 @@ const DateSection = dynamic(() => import('../src/components/sections/DateSection
 });
 
 // // 카카오맵 API는 클라이언트 사이드에서만 로드되어야 함
-// const VenueSection = dynamic(() => import('../src/components/sections/VenueSection'), {
-//     ssr: false,
-//     loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>,
-// });
+const VenueSection = dynamic(() => import('../src/components/sections/VenueSection'), {
+    ssr: false,
+    loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>,
+});
 
 const GallerySection = dynamic(() => import('../src/components/sections/GallerySection'), {
     loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>,
@@ -66,7 +66,7 @@ export default function Home() {
             <MainSection />
             <InvitationSection bgColor={sectionColorMap['invitation']} />
             <DateSection bgColor={sectionColorMap['date']} />
-            {/* <VenueSection bgColor={sectionColorMap['venue']} /> */}
+            <VenueSection bgColor={sectionColorMap['venue']} />
             {galleryPosition === 'middle' && <GallerySection bgColor={sectionColorMap['gallery-middle']} />}
             {showRsvp && <RsvpSection bgColor={sectionColorMap['rsvp']} />}
             <AccountSection bgColor={sectionColorMap['account']} />

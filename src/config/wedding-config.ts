@@ -47,19 +47,19 @@ export const weddingConfig = {
     // 장소 정보
     venue: {
         name: '팔레드오페라',
-        address: '대전 서구 둔산남로 50\n팔레드오페라',
+        address: '대전 서구 둔산남로 50\n팔레드오페라 4F 가르니에홀',
         tel: '042-300-5000',
         naverMapId: '팔레드오페라', // 네이버 지도 검색용 장소명
         coordinates: {
-            latitude: 37.5665,
-            longitude: 126.978,
+            latitude: 36.34806,
+            longitude: 127.38355,
         },
-        placeId: '123456789', // 네이버 지도 장소 ID
+        placeId: '1599246173', // 네이버 지도 장소 ID
         mapZoom: '17', // 지도 줌 레벨
         mapNaverCoordinates: '14141300,4507203,15,0,0,0,dh', // 네이버 지도 길찾기 URL용 좌표 파라미터 (구 형식)
         transportation: {
-            subway: '지하철역 1번 출구에서 도보 5분',
-            bus: '간선\n 101, 102, 103\n지선\n 1234, 5678',
+            subway: '탄방역 2번, 3번 출구\n시청역 1번 출구',
+            bus: '간선 104, 105, 106, 213, 617, 618, 703, 707\n광역 M1',
         },
         parking: '건물 주차장 이용 가능 (3시간 무료)',
     },

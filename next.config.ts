@@ -19,10 +19,10 @@ const nextConfig = {
     //   domains: ['example.com'],
     // },
 
-    // // 환경 변수 설정
-    // env: {
-    //     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-    // },
+    // 환경 변수 설정
+    env: {
+        NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    },
 
     // 캐시 정책을 더 스마트하게 설정
     async headers() {
