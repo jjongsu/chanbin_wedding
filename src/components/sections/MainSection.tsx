@@ -5,11 +5,9 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { weddingConfig } from '../../config/wedding-config';
 
-const watermarkId = weddingConfig.meta._jwk_watermark_id || 'JWK-NonCommercial';
-
 const MainSection = () => {
     return (
-        <MainSectionContainer className={`wedding-container jwk-${watermarkId.slice(0, 8)}-main`}>
+        <MainSectionContainer className={`wedding-container-main`}>
             <BackgroundImage
                 src={weddingConfig.main.image}
                 alt="웨딩 배경 이미지"
@@ -25,8 +23,6 @@ const MainSection = () => {
                 <MainTitle>{weddingConfig.main.title}</MainTitle>
                 <DateText>{weddingConfig.main.date}</DateText>
                 <VenueText>{weddingConfig.main.venue}</VenueText>
-
-                <HiddenWatermark aria-hidden="true">{watermarkId}</HiddenWatermark>
             </MainContent>
 
             <ScrollIndicator>
@@ -274,18 +270,6 @@ const ScrollIndicator = styled.div`
             transform: translateX(-50%) translateY(-10px);
         }
     }
-`;
-
-const HiddenWatermark = styled.span`
-    position: absolute;
-    opacity: 0.01;
-    font-size: 1px;
-    color: rgba(255, 255, 255, 0.01);
-    pointer-events: none;
-    user-select: none;
-    z-index: -9999;
-    bottom: 0;
-    right: 0;
 `;
 
 export default MainSection;

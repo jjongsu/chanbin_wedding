@@ -3,21 +3,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { weddingConfig } from '../config/wedding-config';
 
-const watermarkId = weddingConfig.meta._jwk_watermark_id || 'JWK-NonCommercial';
-
-/**
- * @license
- * 웨딩 청첩장 템플릿
- * Copyright (c) 2025 Jawon Koo
- * 라이선스: CC BY-NC-ND 4.0
- * 저작자표시-비영리-변경금지
- * https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko
- * 
- * 이 코드는 비상업적 용도로만 사용 가능합니다.
- * 상업적 용도로 사용 시 법적 조치가 취해질 수 있습니다.
- * ID: ${watermarkId}
- */
-
 export const GlobalStyle = createGlobalStyle`
   /* 폰트 로딩 전에 적용될 스타일 */
   @font-face {
@@ -84,7 +69,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body::after {
-    content: "${watermarkId}";
+    content: "";
     position: fixed;
     bottom: -100px;
     right: -100px;
@@ -97,16 +82,6 @@ export const GlobalStyle = createGlobalStyle`
     user-select: none;
   }
   
-  .jwk-watermark {
-    position: absolute;
-    opacity: 0.01;
-    font-size: 1px;
-    color: rgba(255, 255, 255, 0.01);
-    pointer-events: none;
-    user-select: none;
-    z-index: -9999;
-  }
-  
   .wedding-container {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' opacity='0.01'%3E%3Ctext x='0' y='20' fill='rgba(0,0,0,0.03)'%3EJWK-TEMPLATE%3C/text%3E%3C/svg%3E");
   }
@@ -117,6 +92,5 @@ export const GlobalStyle = createGlobalStyle`
     --text-dark: #333333;
     --text-medium: #666666;
     --text-light: #999999;
-    --jwk-id: "${watermarkId}";
   }
-`; 
+`;

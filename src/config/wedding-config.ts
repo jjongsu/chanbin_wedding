@@ -1,5 +1,3 @@
-const uniqueIdentifier = 'JWK-WEDDING-TEMPLATE-V1';
-
 // 갤러리 레이아웃 타입 정의
 type GalleryLayout = 'scroll' | 'grid';
 type GalleryPosition = 'middle' | 'bottom';
@@ -15,15 +13,14 @@ export const weddingConfig = {
     meta: {
         title: '찬빈❤️인화 결혼식에 초대합니다.',
         description: '2026. 4. 5.(일) PM 12:40\n대전 팔레드오페라, 4F 가르니에홀',
-        ogImage: '/images/ha0h-1fsi-bqt3.jpg',
+        ogImage: '/images/main-image.jpg',
         noIndex: true,
-        _jwk_watermark_id: uniqueIdentifier,
     },
 
     // 메인 화면
     main: {
         title: 'Wedding Day',
-        image: '/images/ha0h-1fsi-bqt3.jpg',
+        image: '/images/main-image.jpg',
         date: '2026년 4월 5일 일요일 12시 40분',
         venue: '팔레드오페라 4F 가르니에홀',
     },
@@ -132,18 +129,5 @@ export const weddingConfig = {
             number: '333-444-555666',
             holder: '신부어머니',
         },
-    },
-
-    // RSVP 설정
-    rsvp: {
-        enabled: false, // RSVP 섹션 표시 여부
-        showMealOption: false, // 식사 여부 입력 옵션 표시 여부
-    },
-
-    // 슬랙 알림 설정
-    slack: {
-        webhookUrl: process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL || '',
-        channel: '#wedding-response',
-        compactMessage: true, // 슬랙 메시지를 간결하게 표시
     },
 };

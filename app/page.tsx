@@ -21,13 +21,11 @@ const GallerySection = dynamic(() => import('../src/components/sections/GalleryS
 });
 
 const InvitationSection = dynamic(() => import('../src/components/sections/InvitationSection'));
-const RsvpSection = dynamic(() => import('../src/components/sections/RsvpSection'));
 const AccountSection = dynamic(() => import('../src/components/sections/AccountSection'));
 
 export default function Home() {
     // 갤러리 위치 설정
     const galleryPosition = weddingConfig.gallery.position || 'middle';
-    const showRsvp = weddingConfig.rsvp?.enabled ?? true;
 
     // 실제 렌더링되는 섹션들의 순서를 계산하여 색상 인덱스 결정
     const sectionColorMap = useMemo(() => {
@@ -40,10 +38,6 @@ export default function Home() {
 
         if (galleryPosition === 'middle') {
             sections.push('gallery-middle'); // GallerySection (middle)
-        }
-
-        if (showRsvp) {
-            sections.push('rsvp'); // RsvpSection
         }
 
         sections.push('account'); // AccountSection
@@ -59,7 +53,7 @@ export default function Home() {
         });
 
         return colorMap;
-    }, [galleryPosition, showRsvp]);
+    }, [galleryPosition]);
 
     return (
         <main>
@@ -68,10 +62,8 @@ export default function Home() {
             <DateSection bgColor={sectionColorMap['date']} />
             <VenueSection bgColor={sectionColorMap['venue']} />
             {galleryPosition === 'middle' && <GallerySection bgColor={sectionColorMap['gallery-middle']} />}
-            {showRsvp && <RsvpSection bgColor={sectionColorMap['rsvp']} />}
             <AccountSection bgColor={sectionColorMap['account']} />
             {galleryPosition === 'bottom' && <GallerySection bgColor={sectionColorMap['gallery-bottom']} />}
-            {/* <Footer /> */}
         </main>
     );
 }

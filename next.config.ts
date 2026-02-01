@@ -11,14 +11,6 @@ const nextConfig = {
         imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     },
 
-    // 성능 최적화 설정
-    // Next.js 15에서는 swcMinify 옵션이 제거되었습니다
-
-    // 외부 이미지 도메인 설정 (필요시 추가)
-    // images: {
-    //   domains: ['example.com'],
-    // },
-
     // 환경 변수 설정
     env: {
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
