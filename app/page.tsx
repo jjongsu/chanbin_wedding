@@ -60,7 +60,7 @@ export default function Home() {
             <MainSection />
             <InvitationSection bgColor={sectionColorMap['invitation']} />
             <DateSection bgColor={sectionColorMap['date']} />
-            <VenueSection bgColor={sectionColorMap['venue']} />
+            {/* <VenueSection bgColor={sectionColorMap['venue']} /> */}
             {galleryPosition === 'middle' && <GallerySection bgColor={sectionColorMap['gallery-middle']} />}
             <AccountSection bgColor={sectionColorMap['account']} />
             {galleryPosition === 'bottom' && <GallerySection bgColor={sectionColorMap['gallery-bottom']} />}
