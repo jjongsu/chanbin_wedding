@@ -1,10 +1,8 @@
 // 갤러리 레이아웃 타입 정의
 type GalleryLayout = 'scroll' | 'grid';
-type GalleryPosition = 'middle' | 'bottom';
 
 interface GalleryConfig {
     layout: GalleryLayout;
-    position: GalleryPosition;
     images: string[];
 }
 
@@ -63,8 +61,6 @@ export const weddingConfig = {
 
     // 갤러리
     gallery: {
-        layout: 'grid' as GalleryLayout, // "scroll" 또는 "grid" 선택
-        position: 'bottom' as GalleryPosition, // "middle" (현재 위치) 또는 "bottom" (맨 하단) 선택
         images: [
             '/images/gallery/image1.jpg',
             '/images/gallery/image2.jpg',
@@ -74,9 +70,9 @@ export const weddingConfig = {
             '/images/gallery/image7.jpeg',
             '/images/gallery/image8.jpeg',
             '/images/gallery/image9.jpg',
-            '/images/gallery/image91.jpg',
-            '/images/gallery/image92.jpg',
-            '/images/gallery/image94.jpg',
+            '/images/gallery/image10.jpg',
+            '/images/gallery/image11.jpg',
+            '/images/gallery/image12.jpg',
         ],
     } as GalleryConfig,
 

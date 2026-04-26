@@ -24,9 +24,6 @@ const InvitationSection = dynamic(() => import('../src/components/sections/Invit
 const AccountSection = dynamic(() => import('../src/components/sections/AccountSection'));
 
 export default function Home() {
-    // 갤러리 위치 설정
-    const galleryPosition = weddingConfig.gallery.position || 'middle';
-
     // 실제 렌더링되는 섹션들의 순서를 계산하여 색상 인덱스 결정
     const sectionColorMap = useMemo(() => {
         const sections = [];
@@ -34,17 +31,10 @@ export default function Home() {
         // MainSection은 색상 계산에서 제외 (항상 기본 스타일)
         sections.push('invitation'); // InvitationSection
         sections.push('date'); // DateSection
-        sections.push('venue'); // VenueSection
-
-        if (galleryPosition === 'middle') {
-            sections.push('gallery-middle'); // GallerySection (middle)
-        }
+        // sections.push('venue'); // VenueSection
 
         sections.push('account'); // AccountSection
-
-        if (galleryPosition === 'bottom') {
-            sections.push('gallery-bottom'); // GallerySection (bottom)
-        }
+        sections.push('gallery-bottom'); // GallerySection (bottom)
 
         // 각 섹션에 색상 인덱스 할당 (0부터 시작하여 번갈아가며)
         const colorMap: Record<string, 'white' | 'beige'> = {};
@@ -53,7 +43,7 @@ export default function Home() {
         });
 
         return colorMap;
-    }, [galleryPosition]);
+    }, []);
 
     return (
         <main>
@@ -61,9 +51,8 @@ export default function Home() {
             <InvitationSection bgColor={sectionColorMap['invitation']} />
             <DateSection bgColor={sectionColorMap['date']} />
             {/* <VenueSection bgColor={sectionColorMap['venue']} /> */}
-            {galleryPosition === 'middle' && <GallerySection bgColor={sectionColorMap['gallery-middle']} />}
             <AccountSection bgColor={sectionColorMap['account']} />
-            {galleryPosition === 'bottom' && <GallerySection bgColor={sectionColorMap['gallery-bottom']} />}
+            <GallerySection bgColor={sectionColorMap['gallery-bottom']} />
         </main>
     );
 }
