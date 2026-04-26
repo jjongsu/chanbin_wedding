@@ -2,4 +2,5 @@ node_modules
 node_modules
 .next
 .env
-.vscode/*
+.vscode
+.playwright-mcp

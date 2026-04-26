@@ -22,6 +22,10 @@ const GallerySection = dynamic(() => import('@component/sections/GallerySection'
 const InvitationSection = dynamic(() => import('@component/sections/InvitationSection'));
 const AccountSection = dynamic(() => import('@component/sections/AccountSection'));
 
+const CommentSection = dynamic(() => import('@component/sections/CommentSection'), {
+    loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>,
+});
+
 export default function Home() {
     // 실제 렌더링되는 섹션들의 순서를 계산하여 색상 인덱스 결정
     const sectionColorMap = useMemo(() => {
@@ -34,6 +38,7 @@ export default function Home() {
 
         sections.push('account'); // AccountSection
         sections.push('gallery-bottom'); // GallerySection (bottom)
+        sections.push('comment'); // CommentSection
 
         // 각 섹션에 색상 인덱스 할당 (0부터 시작하여 번갈아가며)
         const colorMap: Record<string, 'white' | 'beige'> = {};
@@ -52,6 +57,7 @@ export default function Home() {
             {/* <VenueSection bgColor={sectionColorMap['venue']} /> */}
             <AccountSection bgColor={sectionColorMap['account']} />
             <GallerySection bgColor={sectionColorMap['gallery-bottom']} />
+            <CommentSection bgColor={sectionColorMap['comment']} />
         </main>
     );
 }
