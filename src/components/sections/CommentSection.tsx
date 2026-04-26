@@ -333,6 +333,7 @@ const TextInput = styled.input`
     height: 2.75rem;
     padding: 0 0.85rem;
     font-size: 0.92rem;
+    box-sizing: border-box;
 `;
 
 const MessageInput = styled.textarea`
@@ -342,6 +343,7 @@ const MessageInput = styled.textarea`
     padding: 0.85rem;
     font-size: 0.95rem;
     line-height: 1.7;
+    box-sizing: border-box;
 `;
 
 const FormFooter = styled.div`
