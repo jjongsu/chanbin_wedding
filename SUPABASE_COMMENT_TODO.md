@@ -1,4 +1,4 @@
-# Supabase 댓글 기능 TODO
+# Supabase 댓글 기능 TODO List
 
 이 문서는 `CommentSection`에 댓글 기능을 붙이기 위한 작업 순서입니다. 각 단계는 독립적으로 지시할 수 있도록 나눴습니다.
 
