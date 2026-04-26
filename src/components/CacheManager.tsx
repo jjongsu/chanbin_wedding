@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import APP_VERSION from '../config/version';
+import APP_VERSION from '@config/version';
 
 const CacheManager = () => {
     useEffect(() => {

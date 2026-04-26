@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { weddingConfig } from '../../config/wedding-config';
+import { weddingConfig } from '@config/wedding-config';
 
-interface GallerySectionProps {
-    bgColor?: 'white' | 'beige';
-}
+type GallerySectionProps = BaseComponentProps;
 
 // 로딩 스피너 컴포넌트 추가
 const LoadingSpinner = styled.div`
@@ -26,46 +24,12 @@ const LoadingSpinner = styled.div`
 `;
 
 const GallerySection = ({ bgColor = 'white' }: GallerySectionProps) => {
-    const [images, setImages] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [expandedImage, setExpandedImage] = useState<string | null>(null);
     const [expandedImageIndex, setExpandedImageIndex] = useState<number>(-1);
     const [isExpandedImageLoading, setIsExpandedImageLoading] = useState<boolean>(false);
     const overlayRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        // API에서 갤러리 이미지 목록 가져오기
-        const fetchGalleryImages = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch('/api/gallery');
-
-                if (!response.ok) {
-                    throw new Error('갤러리 이미지를 불러오는데 실패했습니다');
-                }
-
-                const data = await response.json();
-
-                if (data.images && data.images.length > 0) {
-                    setImages(data.images);
-                } else {
-                    // API에서 이미지를 가져오지 못한 경우 기본 설정 사용
-                    setImages(weddingConfig.gallery.images);
-                }
-            } catch (err) {
-                console.error('갤러리 이미지 로드 오류:', err);
-                setError('이미지를 불러오는데 문제가 발생했습니다');
-                // 에러 발생 시 기본 설정 사용
-                setImages(weddingConfig.gallery.images);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchGalleryImages();
-    }, []);
+    const images = weddingConfig.gallery.images;
 
     // 브라우저 뒤로가기 처리
     useEffect(() => {
@@ -90,6 +54,43 @@ const GallerySection = ({ bgColor = 'white' }: GallerySectionProps) => {
             };
         }
     }, [expandedImage]);
+
+    const handleImageClick = (image: string) => {
+        const imageIndex = images.indexOf(image);
+        setExpandedImage(image);
+        setExpandedImageIndex(imageIndex);
+        setIsExpandedImageLoading(true); // 이미지 로딩 시작
+    };
+
+    const goToPreviousImage = () => {
+        if (expandedImageIndex > 0) {
+            const newIndex = expandedImageIndex - 1;
+            setExpandedImageIndex(newIndex);
+            setExpandedImage(images[newIndex]);
+            setIsExpandedImageLoading(true); // 새 이미지 로딩 시작
+        }
+    };
+
+    const goToNextImage = () => {
+        if (expandedImageIndex < images.length - 1) {
+            const newIndex = expandedImageIndex + 1;
+            setExpandedImageIndex(newIndex);
+            setExpandedImage(images[newIndex]);
+            setIsExpandedImageLoading(true); // 새 이미지 로딩 시작
+        }
+    };
+
+    const handleCloseExpanded = () => {
+        setExpandedImage(null);
+        setExpandedImageIndex(-1);
+        setIsExpandedImageLoading(false); // 로딩 상태 리셋
+        // 확대 이미지가 닫힐 때 스크롤 허용
+        document.body.style.overflow = '';
+        // 뒤로가기 히스토리 처리
+        if (window.history.state && window.history.state.expandedImage) {
+            window.history.back();
+        }
+    };
 
     // 터치 이벤트 처리
     useEffect(() => {
@@ -130,65 +131,6 @@ const GallerySection = ({ bgColor = 'white' }: GallerySectionProps) => {
             };
         }
     }, [expandedImage]);
-
-    const scrollLeft = () => {
-        if (scrollContainerRef.current) {
-            // 한 아이템 너비(250px) + 갭(1rem = 16px)만큼만 스크롤
-            scrollContainerRef.current.scrollBy({
-                left: -266,
-                behavior: 'smooth',
-            });
-        }
-    };
-
-    const scrollRight = () => {
-        if (scrollContainerRef.current) {
-            // 한 아이템 너비(250px) + 갭(1rem = 16px)만큼만 스크롤
-            scrollContainerRef.current.scrollBy({
-                left: 266,
-                behavior: 'smooth',
-            });
-        }
-    };
-
-    const handleImageClick = (image: string) => {
-        const imageIndex = images.indexOf(image);
-        setExpandedImage(image);
-        setExpandedImageIndex(imageIndex);
-        setIsExpandedImageLoading(true); // 이미지 로딩 시작
-        // 확대 이미지가 표시될 때 스크롤 방지
-        document.body.style.overflow = 'hidden';
-    };
-
-    const goToPreviousImage = () => {
-        if (expandedImageIndex > 0) {
-            const newIndex = expandedImageIndex - 1;
-            setExpandedImageIndex(newIndex);
-            setExpandedImage(images[newIndex]);
-            setIsExpandedImageLoading(true); // 새 이미지 로딩 시작
-        }
-    };
-
-    const goToNextImage = () => {
-        if (expandedImageIndex < images.length - 1) {
-            const newIndex = expandedImageIndex + 1;
-            setExpandedImageIndex(newIndex);
-            setExpandedImage(images[newIndex]);
-            setIsExpandedImageLoading(true); // 새 이미지 로딩 시작
-        }
-    };
-
-    const handleCloseExpanded = () => {
-        setExpandedImage(null);
-        setExpandedImageIndex(-1);
-        setIsExpandedImageLoading(false); // 로딩 상태 리셋
-        // 확대 이미지가 닫힐 때 스크롤 허용
-        document.body.style.overflow = '';
-        // 뒤로가기 히스토리 처리
-        if (window.history.state && window.history.state.expandedImage) {
-            window.history.back();
-        }
-    };
 
     // 키보드 이벤트 처리
     useEffect(() => {
@@ -234,6 +176,15 @@ const GallerySection = ({ bgColor = 'white' }: GallerySectionProps) => {
         }
     }, [expandedImage, expandedImageIndex, images]);
 
+    useEffect(() => {
+        if (expandedImage) {
+            // 확대 이미지가 표시될 때 스크롤 방지
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }, [expandedImage]);
+
     // 확대된 이미지 로드 완료 핸들러
     const handleExpandedImageLoad = () => {
         setIsExpandedImageLoading(false);
@@ -244,20 +195,11 @@ const GallerySection = ({ bgColor = 'white' }: GallerySectionProps) => {
         setIsExpandedImageLoading(false);
     };
 
-    if (isLoading) {
+    if (images.length === 0) {
         return (
             <GallerySectionContainer $bgColor={bgColor}>
                 <SectionTitle>갤러리</SectionTitle>
-                <LoadingContainer>이미지를 불러오는 중...</LoadingContainer>
-            </GallerySectionContainer>
-        );
-    }
-
-    if (error || images.length === 0) {
-        return (
-            <GallerySectionContainer $bgColor={bgColor}>
-                <SectionTitle>갤러리</SectionTitle>
-                <ErrorContainer>{error || '갤러리 이미지가 없습니다'}</ErrorContainer>
+                <ErrorContainer>갤러리 이미지가 없습니다</ErrorContainer>
             </GallerySectionContainer>
         );
     }

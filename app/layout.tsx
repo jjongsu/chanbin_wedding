@@ -1,9 +1,9 @@
 'use client';
 
-import { weddingConfig } from '../src/config/wedding-config';
-import StyledComponentsRegistry from '../src/lib/registry';
-import { GlobalStyle } from '../src/styles/globalStyles';
-import './globals.css';
+import CacheManager from '@component/CacheManager';
+import { weddingConfig } from '@config/wedding-config';
+import StyledComponentsRegistry from '@lib/registry';
+import { GlobalStyle } from '@style/globalStyles';
 
 export default function RootLayout({
     children,
@@ -27,6 +27,7 @@ export default function RootLayout({
             <body>
                 <StyledComponentsRegistry>
                     <GlobalStyle />
+                    <CacheManager />
                     {children}
                 </StyledComponentsRegistry>
             </body>

@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { weddingConfig } from '../../config/wedding-config';
+import { weddingConfig } from '@config/wedding-config';
 
-interface DateSectionProps {
-    bgColor?: 'white' | 'beige';
-}
+type DateSectionProps = BaseComponentProps;
 
 const DateSection = ({ bgColor = 'white' }: DateSectionProps) => {
     const [timeLeft, setTimeLeft] = useState({
@@ -122,7 +120,7 @@ const DateSection = ({ bgColor = 'white' }: DateSectionProps) => {
             </CalendarCard>
 
             <CountdownContainer>
-                <CountdownTitle>{isWeddingPassed ? '함께한 시간' : '결혼까지 남은 시간'}</CountdownTitle>
+                <CountdownTitle>{isWeddingPassed ? '두 사람이 함께한 시간' : '결혼까지 남은 시간'}</CountdownTitle>
 
                 <CountdownWrapper>
                     <CountdownItem>

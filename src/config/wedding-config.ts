@@ -1,8 +1,4 @@
-// 갤러리 레이아웃 타입 정의
-type GalleryLayout = 'scroll' | 'grid';
-
 interface GalleryConfig {
-    layout: GalleryLayout;
     images: string[];
 }
 

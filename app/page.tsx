@@ -1,27 +1,26 @@
 'use client';
 
-import { Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import MainSection from '../src/components/sections/MainSection';
-import { weddingConfig } from '../src/config/wedding-config';
+import MainSection from '@component/sections/MainSection';
 
 // 동적 임포트로 코드 분할 및 지연 로딩 적용
-const DateSection = dynamic(() => import('../src/components/sections/DateSection'), {
+const DateSection = dynamic(() => import('@component/sections/DateSection'), {
     loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>,
 });
 
 // // 카카오맵 API는 클라이언트 사이드에서만 로드되어야 함
-const VenueSection = dynamic(() => import('../src/components/sections/VenueSection'), {
+const VenueSection = dynamic(() => import('@component/sections/VenueSection'), {
     ssr: false,
     loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>,
 });
 
-const GallerySection = dynamic(() => import('../src/components/sections/GallerySection'), {
+const GallerySection = dynamic(() => import('@component/sections/GallerySection'), {
     loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>,
 });
 
-const InvitationSection = dynamic(() => import('../src/components/sections/InvitationSection'));
-const AccountSection = dynamic(() => import('../src/components/sections/AccountSection'));
+const InvitationSection = dynamic(() => import('@component/sections/InvitationSection'));
+const AccountSection = dynamic(() => import('@component/sections/AccountSection'));
 
 export default function Home() {
     // 실제 렌더링되는 섹션들의 순서를 계산하여 색상 인덱스 결정

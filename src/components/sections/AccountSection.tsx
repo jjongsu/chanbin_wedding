@@ -1,16 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { weddingConfig } from '../../config/wedding-config';
-import { AccountInfo } from '../../types/wedding';
+import { weddingConfig } from '@config/wedding-config';
 
 type AccountPerson = 'groom' | 'bride' | 'groomFather' | 'groomMother' | 'brideFather' | 'brideMother';
 type AccountSide = 'groom' | 'bride';
 
-interface AccountSectionProps {
-    bgColor?: 'white' | 'beige';
+interface AccountInfo {
+    bank: string;
+    number: string;
+    holder: string;
 }
+
+type AccountSectionProps = BaseComponentProps;
 
 const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
     const [copyStatus, setCopyStatus] = useState<Record<AccountPerson, boolean>>({
@@ -46,7 +49,7 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
             },
             (err) => {
                 console.error('계좌번호 복사 실패:', err);
-            }
+            },
         );
     };
 
@@ -62,7 +65,7 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
             },
             (err) => {
                 console.error('URL 복사 실패:', err);
-            }
+            },
         );
     };
 
@@ -305,12 +308,6 @@ const AccountRowTitle = styled.div`
     @media (max-width: 480px) {
         min-width: 55px;
     }
-`;
-
-const NameSpan = styled.span`
-    font-weight: 400;
-    font-size: 0.85rem;
-    color: var(--text-medium);
 `;
 
 const AccountRowInfo = styled.div`

@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { weddingConfig } from '../../config/wedding-config';
+import { weddingConfig } from '@config/wedding-config';
 
 const MainSection = () => {
     return (

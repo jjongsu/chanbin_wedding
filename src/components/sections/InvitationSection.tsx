@@ -1,12 +1,9 @@
 'use client';
 
-import React from 'react';
 import styled from 'styled-components';
-import { weddingConfig } from '../../config/wedding-config';
+import { weddingConfig } from '@config/wedding-config';
 
-interface InvitationSectionProps {
-    bgColor?: 'white' | 'beige';
-}
+type InvitationSectionProps = BaseComponentProps;
 
 const InvitationSection = ({ bgColor = 'white' }: InvitationSectionProps) => {
     const { invitation } = weddingConfig;

@@ -1,7 +1,6 @@
 'use client';
 
 import { createGlobalStyle } from 'styled-components';
-import { weddingConfig } from '../config/wedding-config';
 
 export const GlobalStyle = createGlobalStyle`
   /* 폰트 로딩 전에 적용될 스타일 */
