@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { hashCommentPassword } from '@lib/comments/password';
+import { checkRateLimit } from '@lib/rate-limit';
 import { createSupabaseAdminClient } from '@lib/supabase/server';
 
 export const runtime = 'nodejs';
@@ -54,6 +55,24 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
+        const rateLimit = checkRateLimit(request, {
+            keyPrefix: 'comment:create',
+            limit: 5,
+            windowMs: 60 * 1000,
+        });
+
+        if (rateLimit.limited) {
+            return NextResponse.json(
+                { error: '잠시 후 다시 시도해주세요.' },
+                {
+                    status: 429,
+                    headers: {
+                        'Retry-After': String(rateLimit.retryAfterSeconds),
+                    },
+                },
+            );
+        }
+
         const body = await parseJsonBody(request);
         const author = getTrimmedString(body?.author);
         const message = getTrimmedString(body?.message);

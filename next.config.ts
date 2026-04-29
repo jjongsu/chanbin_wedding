@@ -65,16 +65,6 @@ const nextConfig = {
                     },
                 ],
             },
-            // JS/CSS 파일들 (Next.js가 자동으로 해시 추가)
-            {
-                source: '/_next/static/:path*',
-                headers: [
-                    {
-                        key: 'Cache-Control',
-                        value: 'public, max-age=31536000, immutable',
-                    },
-                ],
-            },
             // API 라우트는 캐시하지 않음
             {
                 source: '/api/:path*',

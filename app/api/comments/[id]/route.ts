@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { verifyAdminPassword, verifyCommentPassword } from '@lib/comments/password';
+import { verifyCommentPassword } from '@lib/comments/password';
+import { checkRateLimit } from '@lib/rate-limit';
 import { createSupabaseAdminClient } from '@lib/supabase/server';
 
 export const runtime = 'nodejs';
@@ -42,11 +43,7 @@ const parseJsonBody = async (request: Request) => {
     }
 };
 
-const isAuthorized = (comment: PrivateCommentRow, password: string, adminPassword: string) => {
-    if (adminPassword && verifyAdminPassword(adminPassword)) {
-        return true;
-    }
-
+const isAuthorized = (comment: PrivateCommentRow, password: string) => {
     return Boolean(password && verifyCommentPassword(password, comment.password_hash));
 };
 
@@ -64,11 +61,28 @@ const findCommentForAuth = async (id: string) => {
 
 export async function PATCH(request: Request, context: RouteContext) {
     try {
+        const rateLimit = checkRateLimit(request, {
+            keyPrefix: 'comment:update',
+            limit: 10,
+            windowMs: 60 * 1000,
+        });
+
+        if (rateLimit.limited) {
+            return NextResponse.json(
+                { error: '잠시 후 다시 시도해주세요.' },
+                {
+                    status: 429,
+                    headers: {
+                        'Retry-After': String(rateLimit.retryAfterSeconds),
+                    },
+                },
+            );
+        }
+
         const { id } = await context.params;
         const body = await parseJsonBody(request);
         const message = getTrimmedString(body?.message);
         const password = getTrimmedString(body?.password);
-        const adminPassword = getTrimmedString(body?.adminPassword);
 
         if (!id) {
             return NextResponse.json({ error: '댓글 ID가 필요합니다.' }, { status: 400 });
@@ -89,7 +103,7 @@ export async function PATCH(request: Request, context: RouteContext) {
             return NextResponse.json({ error: '댓글을 찾지 못했습니다.' }, { status: 404 });
         }
 
-        if (!isAuthorized(comment, password, adminPassword)) {
+        if (!isAuthorized(comment, password)) {
             return NextResponse.json({ error: '수정 권한이 없습니다.' }, { status: 401 });
         }
 
@@ -117,10 +131,27 @@ export async function PATCH(request: Request, context: RouteContext) {
 
 export async function DELETE(request: Request, context: RouteContext) {
     try {
+        const rateLimit = checkRateLimit(request, {
+            keyPrefix: 'comment:delete',
+            limit: 10,
+            windowMs: 60 * 1000,
+        });
+
+        if (rateLimit.limited) {
+            return NextResponse.json(
+                { error: '잠시 후 다시 시도해주세요.' },
+                {
+                    status: 429,
+                    headers: {
+                        'Retry-After': String(rateLimit.retryAfterSeconds),
+                    },
+                },
+            );
+        }
+
         const { id } = await context.params;
         const body = await parseJsonBody(request);
         const password = getTrimmedString(body?.password);
-        const adminPassword = getTrimmedString(body?.adminPassword);
 
         if (!id) {
             return NextResponse.json({ error: '댓글 ID가 필요합니다.' }, { status: 400 });
@@ -137,7 +168,7 @@ export async function DELETE(request: Request, context: RouteContext) {
             return NextResponse.json({ error: '댓글을 찾지 못했습니다.' }, { status: 404 });
         }
 
-        if (!isAuthorized(comment, password, adminPassword)) {
+        if (!isAuthorized(comment, password)) {
             return NextResponse.json({ error: '삭제 권한이 없습니다.' }, { status: 401 });
         }
 

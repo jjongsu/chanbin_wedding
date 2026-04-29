@@ -16,14 +16,14 @@ const timingSafeStringEqual = (left: string, right: string) => {
     return timingSafeEqual(leftBuffer, rightBuffer);
 };
 
-export const hashCommentPassword = (password: string) => {
+export const hashPassword = (password: string) => {
     const salt = randomBytes(16).toString('hex');
     const hash = scryptSync(password, salt, KEY_LENGTH).toString('hex');
 
     return `${HASH_PREFIX}:${salt}:${hash}`;
 };
 
-export const verifyCommentPassword = (password: string, passwordHash: string | null) => {
+export const verifyPassword = (password: string, passwordHash: string | null) => {
     if (!passwordHash) return false;
 
     const [prefix, salt, storedHash] = passwordHash.split(':');
@@ -37,12 +37,6 @@ export const verifyCommentPassword = (password: string, passwordHash: string | n
     return timingSafeStringEqual(hash, storedHash);
 };
 
-export const verifyAdminPassword = (password: string) => {
-    const adminPassword = process.env.COMMENT_ADMIN_PASSWORD;
+export const hashCommentPassword = hashPassword;
 
-    if (!adminPassword) {
-        return false;
-    }
-
-    return timingSafeStringEqual(password, adminPassword);
-};
+export const verifyCommentPassword = verifyPassword;
