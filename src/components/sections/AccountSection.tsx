@@ -287,7 +287,8 @@ const AccountRowsContainer = styled.div`
 `;
 
 const AccountRow = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr) auto;
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 1.25rem;
@@ -298,16 +299,19 @@ const AccountRow = styled.div`
     }
 
     @media (max-width: 580px) {
+        grid-template-columns: 4.25rem minmax(0, 1fr) auto;
         padding: 1rem 1rem;
     }
 
     @media (max-width: 480px) {
-        align-items: flex-start;
-        flex-wrap: wrap;
+        grid-template-columns: 3.5rem minmax(0, 1fr);
+        align-items: center;
+        row-gap: 0.7rem;
         padding: 1rem 0.75rem;
     }
 
     @media (max-width: 380px) {
+        grid-template-columns: 3.25rem minmax(0, 1fr);
         padding: 1rem 0.55rem;
     }
 `;
@@ -316,15 +320,11 @@ const AccountRowTitle = styled.div`
     font-weight: 500;
     font-size: 0.95rem;
     color: var(--secondary-color);
-    min-width: 100px;
     text-align: left;
 
-    @media (max-width: 580px) {
-        min-width: 67.5px;
-    }
-
     @media (max-width: 480px) {
-        min-width: 55px;
+        align-self: start;
+        padding-top: 0.1rem;
     }
 `;
 
@@ -369,13 +369,9 @@ const AccountActions = styled.div`
     flex-shrink: 0;
 
     @media (max-width: 480px) {
-        width: 100%;
+        grid-column: 2;
         justify-content: flex-end;
-        padding-left: calc(55px + 0.75rem);
-    }
-
-    @media (max-width: 380px) {
-        padding-left: 0;
+        width: 100%;
     }
 `;
 
@@ -408,6 +404,10 @@ const KakaoPayLink = styled.a`
     &:active {
         transform: translateY(1px);
     }
+
+    @media (max-width: 380px) {
+        width: 5.35rem;
+    }
 `;
 
 const CopyButton = styled.button`
@@ -422,6 +422,7 @@ const CopyButton = styled.button`
     transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
+    min-height: 2rem;
 
     &:hover,
     &:active {
