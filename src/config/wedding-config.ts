@@ -95,6 +95,7 @@ export const weddingConfig = {
             bank: '신한은행',
             number: '110-550-784349',
             holder: '남궁찬빈',
+            kakaopay: 'https://link.kakaopay.com/__/ZxDC9dv',
         },
         bride: {
             bank: '농협은행',

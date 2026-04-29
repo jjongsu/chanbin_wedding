@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
 import { weddingConfig } from '@config/wedding-config';
 
@@ -11,6 +12,7 @@ interface AccountInfo {
     bank: string;
     number: string;
     holder: string;
+    kakaopay?: string;
 }
 
 type AccountSectionProps = BaseComponentProps;
@@ -132,14 +134,27 @@ const AccountSection = ({ bgColor = 'white' }: AccountSectionProps) => {
                     <AccountBank>{bankText}</AccountBank>
                     <AccountNumber>{numberAndHolder}</AccountNumber>
                 </AccountRowInfo>
-                <CopyButton
-                    onClick={(e) => {
-                        e.stopPropagation(); // 클릭 이벤트가 상위로 전파되지 않도록 방지
-                        copyToClipboard(copyText, person);
-                    }}
-                >
-                    {copyStatus[person] ? '복사 완료' : '복사'}
-                </CopyButton>
+                <AccountActions>
+                    {accountInfo.kakaopay && (
+                        <KakaoPayLink
+                            href={accountInfo.kakaopay}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${accountInfo.holder}에게 카카오페이로 송금하기`}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <Image src="/images/kakap-pay/btn_send_tiny.png" alt="카카오페이 송금" width={140} height={32} />
+                        </KakaoPayLink>
+                    )}
+                    <CopyButton
+                        onClick={(e) => {
+                            e.stopPropagation(); // 클릭 이벤트가 상위로 전파되지 않도록 방지
+                            copyToClipboard(copyText, person);
+                        }}
+                    >
+                        {copyStatus[person] ? '복사 완료' : '복사'}
+                    </CopyButton>
+                </AccountActions>
             </AccountRow>
         );
     };
@@ -274,6 +289,7 @@ const AccountRowsContainer = styled.div`
 const AccountRow = styled.div`
     display: flex;
     align-items: center;
+    gap: 0.75rem;
     padding: 1rem 1.25rem;
     border-bottom: 1px solid #f5f5f5;
 
@@ -286,6 +302,8 @@ const AccountRow = styled.div`
     }
 
     @media (max-width: 480px) {
+        align-items: flex-start;
+        flex-wrap: wrap;
         padding: 1rem 0.75rem;
     }
 
@@ -343,6 +361,55 @@ const AccountNumber = styled.div`
     }
 `;
 
+const AccountActions = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    flex-shrink: 0;
+
+    @media (max-width: 480px) {
+        width: 100%;
+        justify-content: flex-end;
+        padding-left: calc(55px + 0.75rem);
+    }
+
+    @media (max-width: 380px) {
+        padding-left: 0;
+    }
+`;
+
+const KakaoPayLink = styled.a`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.8rem;
+    height: 2rem;
+    border-radius: 4px;
+    background-color: #ffeb00;
+    box-shadow: 0 1px 2px rgba(58, 29, 29, 0.12);
+    overflow: hidden;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &:hover {
+        box-shadow: 0 3px 8px rgba(58, 29, 29, 0.16);
+        filter: saturate(1.04);
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+`;
+
 const CopyButton = styled.button`
     background-color: transparent;
     border: 1px solid var(--secondary-color);
@@ -353,7 +420,6 @@ const CopyButton = styled.button`
     font-size: 0.85rem;
     white-space: nowrap;
     transition: all 0.2s ease;
-    margin-left: 0.5rem;
     position: relative;
     overflow: hidden;
 
