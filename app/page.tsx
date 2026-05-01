@@ -34,11 +34,11 @@ export default function Home() {
         // MainSection은 색상 계산에서 제외 (항상 기본 스타일)
         sections.push('invitation'); // InvitationSection
         sections.push('date'); // DateSection
-        sections.push('venue'); // VenueSection
+        // sections.push('venue'); // VenueSection
 
         sections.push('account'); // AccountSection
         sections.push('gallery-bottom'); // GallerySection (bottom)
-        sections.push('comment'); // CommentSection
+        // sections.push('comment'); // CommentSection
 
         // 각 섹션에 색상 인덱스 할당 (0부터 시작하여 번갈아가며)
         const colorMap: Record<string, 'white' | 'beige'> = {};
@@ -54,10 +54,10 @@ export default function Home() {
             <MainSection />
             <InvitationSection bgColor={sectionColorMap['invitation']} />
             <DateSection bgColor={sectionColorMap['date']} />
-            <VenueSection bgColor={sectionColorMap['venue']} />
+            {/* <VenueSection bgColor={sectionColorMap['venue']} /> */}
             <AccountSection bgColor={sectionColorMap['account']} />
             <GallerySection bgColor={sectionColorMap['gallery-bottom']} />
-            <CommentSection bgColor={sectionColorMap['comment']} />
+            {/* <CommentSection bgColor={sectionColorMap['comment']} /> */}
         </main>
     );
 }
